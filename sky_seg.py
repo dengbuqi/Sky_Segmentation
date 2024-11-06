@@ -38,6 +38,7 @@ def GradientMagnitude(gray_img):
 def sky_seg(img):  # 1 is sky, 0 is other
     mean_rgb = np.mean(img, axis=2)
     gradient_magnitude = GradientMagnitude(mean_rgb)
+    gradient_magnitude = gradient_magnitude/np.max(gradient_magnitude)
     rgb_dis = channel_dis(img)
     # seg = (((1-rgb_dis)+mean_rgb)/2)*(1-gradient_magnitude)
     seg = ((1-rgb_dis)+mean_rgb)*(1-gradient_magnitude)
@@ -59,7 +60,13 @@ def run(image_path, save_name):
     cv2.imwrite(save_name, seg*255)
 
 if __name__=='__main__':
+    run('19_0.7_1.99.png', '19_0.7_1.99_sky_seg.png')
+    run('21_0.7_1.86.png', '21_0.7_1.86_sky_seg.png')
+    run('26_0.93_1.97.png', '26_0.93_1.97_sky_seg.png')
+    run('29_0.85_1.7.png', '29_0.85_1.7_sky_seg.png')
+    run('36_0.83_1.99.png', '36_0.83_1.99_sky_seg.png')
     run('361_low.png', '361_sky_seg.png')
     run('486_low.png', '486_sky_seg.png')
+
 
 
